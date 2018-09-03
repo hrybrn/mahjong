@@ -40,5 +40,6 @@ jobs:
         
       # run tests!
       - run: gradle test
-  - deploy:
-      -run: gradle bintrayUpload
+      
+      # upload to bintray
+      - run: gradle bintrayUpload
