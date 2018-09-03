@@ -1,18 +1,31 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+'
+    }
+}
+
 plugins {
     id 'java'
+    id "com.jfrog.bintray" version "1.8.4"
 }
 
 apply plugin: 'application'
+apply plugin: 'com.jfrog.bintray'
 
 mainClassName = 'com.hrybrn.mahjong.games.Main'
 
 group 'hrybrn'
-version '1.0-SNAPSHOT'
+version '1.0.0'
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -20,7 +33,16 @@ dependencies {
     testCompile "org.mockito:mockito-core:2.+"
 }
 
-task coreJar (type: Jar) {
-    from sourceSets.main.output
-    exclude 'com.hrybrn.mahjong.games'
+bintray {
+  user = System.getenv('BINTRAY_USER')
+  key = System.getenv('BINTRAY_KEY')
+  pkg {
+    repo = 'mahjong'
+    name = 'core'
+    websiteUrl = "https://github.com/hrybrn/mahjong"
+    issueTrackerUrl = "https://github.com/hrybrn/mahjong/issues"
+    vcsUrl = "https://github.com/hrybrn/mahjong.git"
+    licenses = ["Apache-2.0"]
+    labels = ["gradle", "bintray", "nebula"]
+  }
 }

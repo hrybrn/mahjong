@@ -40,5 +40,5 @@ jobs:
         
       # run tests!
       - run: gradle test
-      - run: gradle coreJar
-      
+  - deploy:
+      -run: gradle bintrayUpload
